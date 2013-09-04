@@ -1,0 +1,23 @@
+div.modal#registration_form
+  div.modal-dialog
+    div.modal-content
+      form.form-horizontal(role='form', ng-controller='UserController', name='register_form')
+        div.modal-header
+          button.close(type='button', data-dismiss='modal') &times;
+          h4 Register
+        div.modal-body
+          div.form-group
+            label.col-lg-2 Username
+            div.col-lg-10
+              input.form-control(type='text', ng-model='user.username')
+          div.form-group
+            label.col-lg-2 Password
+            div.col-lg-10
+              input.form-control(type='password', ng-model='user.password')
+          div.form-group
+            label.col-lg-2 Confirm Password
+            div.col-lg-10
+              input.form-control(type='password', ng-model='user.password_confirm')
+        div.modal-footer
+          button.btn.btn-default(data-dismiss='modal') Cancel
+          button.btn.btn-primary(type='submit', ng-click='addUser(user)') Register

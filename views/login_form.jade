@@ -1,0 +1,19 @@
+div.modal#login_form
+  div.modal-dialog
+    div.modal-content
+      form.form-horizontal(action='/login', method='post', ngia-controller='UserController')
+        div.modal-header
+          button.close(data-dismiss='modal') &times;
+          h4 Login
+        div.modal-body
+          div.form-group
+            label.col-lg-2 Username
+            div.col-lg-10
+              input.form-control(type='text', name='username', ng-model='user.username')
+          div.form-group
+            label.col-lg-2 Password
+            div.col-lg-10
+              input.form-control(type='password', name='password', ng-model='user.password')
+        div.modal-footer
+          button.btn.btn-default(data-dismiss='modal') Close
+          input.btn.btn-primary(type='submit', ngia-click='login(user)') Login

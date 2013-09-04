@@ -6,8 +6,6 @@
 var config = require('./config.json');
 
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var fs = require('fs');
 var http = require('http');
 var path = require('path');
@@ -39,10 +37,21 @@ passport.use(new LocalStrategy(
             if (!user.checkPassword(password)) {
                 return done(null, false, { message: 'incorrect_login'});
             }
+            return done(null, user);
         });
-        return done(null, user);
     }
 ));
+
+passport.serializeUser(function (user, done) {
+    done(null, user._id);
+});
+
+passport.deserializeUser(function (id, done) {
+    var User = mongoose.model('User');
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
 
 var app = express();
@@ -56,6 +65,10 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: '1523j8adsf'}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -64,11 +77,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', passport.authenticate('local', {
-        failureRedirect: '/login',
-        filaureFlash: 'Invalid Login'
-    }), user.list);
+require('./helpers/routes.js')(app, passport);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

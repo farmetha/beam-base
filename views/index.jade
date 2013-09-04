@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.jumbotron
+    div.container
+      h1 BEAM
+      p A project that utilizes Twitter Bootstrap, Express JS, Angular and Mongoose as a base project for hackathons, prototypes and quick development of new application ideas.
+      p {{ 1 + 2 }}
+      p
+        a.btn.btn-primary.btn-lg(data-toggle='modal', href='#registration_form') Register
+        div.modal.fade#myModal(role='dialog')
+          div.modal-dialog
+            div.modal-content
+              div.modal-header
+                button.close(data-dismiss='modal') &times;
+                h4.modal-title Modal Title
+              div.modal-body
+                p yada
+              div.modal-footer
+                button.btn.btn-default Close
+                button.btn.btn-primary Save
