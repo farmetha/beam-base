@@ -6,7 +6,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "4.19.2",
+    "express": "4.20.0",
     "jade": "0.35.0",
     "mongoose": "5.13.20",
     "passport": "0.1.17",
